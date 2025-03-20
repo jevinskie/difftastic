@@ -92,6 +92,7 @@ extern "C" {
     fn tree_sitter_julia() -> ts::Language;
     fn tree_sitter_kotlin() -> ts::Language;
     fn tree_sitter_latex() -> ts::Language;
+    fn tree_sitter_llvm() -> ts::Language;
     fn tree_sitter_lua() -> ts::Language;
     fn tree_sitter_make() -> ts::Language;
     fn tree_sitter_newick() -> ts::Language;
@@ -710,6 +711,20 @@ pub(crate) fn from_language(language: guess::Language) -> TreeSitterConfig {
                 highlight_query: ts::Query::new(
                     language,
                     include_str!("../../vendored_parsers/highlights/latex.scm"),
+                )
+                .unwrap(),
+                sub_languages: vec![],
+            }
+        }
+        Llvm => {
+            let language = unsafe { tree_sitter_llvm() };
+            TreeSitterConfig {
+                language,
+                atom_nodes: vec!["string"].into_iter().collect(),
+                delimiter_tokens: vec![("{", "}"), ("[", "]"), ("<", ">")],
+                highlight_query: ts::Query::new(
+                    language,
+                    include_str!("../../vendored_parsers/tree-sitter-llvm/queries/highlights.scm"),
                 )
                 .unwrap(),
                 sub_languages: vec![],

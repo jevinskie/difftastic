@@ -51,6 +51,7 @@ pub(crate) enum Language {
     Julia,
     Kotlin,
     LaTeX,
+    Llvm,
     Lua,
     Make,
     Newick,
@@ -144,6 +145,7 @@ pub(crate) fn language_name(language: Language) -> &'static str {
         Julia => "Julia",
         Kotlin => "Kotlin",
         LaTeX => "LaTeX",
+        Llvm => "LLVM",
         Lua => "Lua",
         Make => "Make",
         Newick => "Newick",
@@ -310,6 +312,7 @@ pub(crate) fn language_globs(language: Language) -> Vec<glob::Pattern> {
         Julia => &["*.jl"],
         Kotlin => &["*.kt", "*.ktm", "*.kts"],
         LaTeX => &["*.aux", "*.cls", "*.sty", "*.tex"],
+        Llvm => &["*.ll"],
         Lua => &["*.lua"],
         Make => &[
             "*.mak",
